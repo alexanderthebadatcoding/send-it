@@ -86,7 +86,7 @@ for (let i = 0; i < 20; i++) {
         <Button value="back" action={backAction}>
           Back
         </Button>,
-        <Button.Link href={`/sendit${i}.png`}>Image</Button.Link>,
+        <Button.Link href={`https://sendit.funfra.me/sendit${i}.png`}>Image</Button.Link>,
         nextAction ? (
           <Button value="next" action={nextAction}>
             Next
