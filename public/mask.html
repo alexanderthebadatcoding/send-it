@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Image Masking</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
+    <style>
+      body {
+        background-color: #ccff00;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: auto;
+        font-family: "Inter", sans-serif;
+      }
+      button {
+        background-color: #005c1f; /* Green */
+        border: none;
+        color: white;
+        padding: 15px 32px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin-bottom: 2rem;
+      }
+      input[type="file"]::file-selector-button {
+        border: 2px solid #6c5ce7;
+        padding: 0.2em 0.4em;
+        border-radius: 0.2em;
+        background-color: #000000;
+        color: white;
+        transition: 0.3691s;
+        margin-bottom: 1rem;
+      }
+
+      input[type="file"]::file-selector-button:hover {
+        background-color: #000000;
+        border: 2px solid #00cec9;
+        color: white;
+      }
+      .buttons {
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        display: flex;
+        gap: 2rem;
+      }
+      img {
+        border: 5px solid black; /* Add a black border with 5px width */
+      }
+      #input-container {
+        margin: 1rem;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- <div class="input-container">
+      <label for="fileInput">Upload Image:</label>
+      <input type="file" id="fileInput" />
+    </div> -->
+    <div class="buttons">
+      <button id="applyGrayscaleButton">Apply Grayscale</button>
+      <button id="saveCanvasButton">Save Canvas</button>
+    </div>
+
+    <script>
+      let img;
+      let maskImg;
+      let isGrayscale = false;
+      let fileInput;
+
+      function preload() {
+        img = loadImage("https://source.unsplash.com/random"); // Load your main image
+        maskImg = loadImage("arrow.png"); // Load your mask image
+      }
+
+      function setup() {
+        createCanvas(400, 400);
+        img.mask(maskImg); // Apply the mask to the main image
+        image(img, 0, 0, width, height); // Display the masked image
+        // Add event listener to the button
+        let button = select("#applyGrayscaleButton");
+        button.mousePressed(applyGrayscale);
+        let saveCanvasButton = select("#saveCanvasButton");
+        saveCanvasButton.mousePressed(saveCanvas);
+      }
+
+      function applyGrayscale() {
+        isGrayscale = !isGrayscale;
+        if (isGrayscale) {
+          filter(GRAY); // Apply grayscale effect
+        } else {
+          filter(); // Remove grayscale effect
+        }
+      }
+      function saveCanvas() {
+        saveCanvas("sendit", "png"); // Save the canvas as an image
+      }
+    </script>
+  </body>
+</html>
